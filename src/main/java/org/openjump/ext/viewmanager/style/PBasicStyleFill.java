@@ -5,7 +5,7 @@ import com.vividsolutions.jump.workbench.ui.renderer.style.BasicStyle;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
- * Created by UMichael on 13/06/2015.
+ * Class to persist BasicStyleFill
  */
 public class PBasicStyleFill {
 

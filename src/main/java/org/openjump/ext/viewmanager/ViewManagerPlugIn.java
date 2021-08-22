@@ -3,13 +3,11 @@ package org.openjump.ext.viewmanager;
 import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.util.Range;
 import com.vividsolutions.jump.workbench.Logger;
-import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.plugin.AbstractPlugIn;
 import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.GUIUtil;
 import com.vividsolutions.jump.workbench.ui.MenuNames;
 import com.vividsolutions.jump.workbench.ui.images.IconLoader;
-import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
 import org.openjump.ext.viewmanager.style.*;
 
 import javax.swing.*;
@@ -27,7 +25,7 @@ import java.io.IOException;
  */
 public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener {
 
-    I18N I18N_ = I18N.getInstance("view_manager");
+    private final I18N i18n = I18N.getInstance("view_manager");
 
     final JLabel viewSetNameLabel = new JLabel("", SwingConstants.LEFT);
 
@@ -39,9 +37,8 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
     JAXBContext jaxbContext;
 
     public void initialize(PlugInContext context) throws Exception {
-        WorkbenchContext workbenchContext = context.getWorkbenchContext();
-        FeatureInstaller featureInstaller = new FeatureInstaller(workbenchContext);
-        featureInstaller.addMainMenuPlugin(this, new String[]{MenuNames.PLUGINS});
+        context.getFeatureInstaller()
+            .addMainMenuPlugin(this, new String[]{MenuNames.PLUGINS});
         jaxbContext = JAXBContext.newInstance(
                 ViewSet.class,
                 PBasicStyle.class,
@@ -54,7 +51,7 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
     }
 
     public String getName() {
-        return I18N_.getText("view_manager","ViewManagerPlugIn");
+        return i18n.get("ViewManagerPlugIn");
     }
 
     //public ImageIcon getIcon(){
@@ -63,7 +60,8 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
 
     public boolean execute(final PlugInContext context) throws Exception {
         this.context = context;
-        File pluginDir = context.getWorkbenchContext().getWorkbench().getPlugInManager().getPlugInDirectory();
+        File pluginDir = context.getWorkbenchContext().getWorkbench()
+            .getPlugInManager().getPlugInDirectory();
         viewDir = new File(pluginDir, "views");
         if (currentViewSet == null) currentViewSet = new ViewSet();
         JDialog dialog = createDialog(viewDir);
@@ -77,21 +75,25 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
 
         // Menu bar definition
         JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu(I18N_.getText("view_manager","ViewManagerPlugIn.Menu.File"));
+        JMenu fileMenu = new JMenu(i18n.get("ViewManagerPlugIn.Menu.File"));
 
-        JMenuItem newViewSetMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewManagerPlugIn.Menu.File.New"), KeyEvent.VK_T);
+        JMenuItem newViewSetMenuItem = new JMenuItem(
+            i18n.get("ViewManagerPlugIn.Menu.File.New"), KeyEvent.VK_T);
         newViewSetMenuItem.setActionCommand("newViewSet");
         newViewSetMenuItem.addActionListener(this);
 
-        JMenuItem openViewSetMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewManagerPlugIn.Menu.File.Open"), KeyEvent.VK_O);
+        JMenuItem openViewSetMenuItem = new JMenuItem(
+            i18n.get("ViewManagerPlugIn.Menu.File.Open"), KeyEvent.VK_O);
         openViewSetMenuItem.setActionCommand("openViewSet");
         openViewSetMenuItem.addActionListener(this);
 
-        JMenuItem saveViewSetMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewManagerPlugIn.Menu.File.Save"), KeyEvent.VK_S);
+        JMenuItem saveViewSetMenuItem = new JMenuItem(
+            i18n.get("ViewManagerPlugIn.Menu.File.Save"), KeyEvent.VK_S);
         saveViewSetMenuItem.setActionCommand("saveViewSet");
         saveViewSetMenuItem.addActionListener(this);
 
-        JMenuItem saveAsViewSetMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewManagerPlugIn.Menu.File.SaveAs")+"...");
+        JMenuItem saveAsViewSetMenuItem = new JMenuItem(
+            i18n.get("ViewManagerPlugIn.Menu.File.SaveAs")+"...");
         saveAsViewSetMenuItem.setActionCommand("saveViewSetAs");
         saveAsViewSetMenuItem.addActionListener(this);
 
@@ -103,33 +105,33 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
         dialog.setJMenuBar(menuBar);
 
         // toolbar definition
-        JToolBar toolBar = new JToolBar(I18N_.getText("view_manager","ViewManagerPlugIn.Toolbar"));
+        JToolBar toolBar = new JToolBar(i18n.get("ViewManagerPlugIn.Toolbar"));
 
         JButton newViewSetButton = new JButton();
         newViewSetButton.setIcon(IconLoader.icon("fugue/folder.png"));
         newViewSetButton.setActionCommand("newViewSet");
-        newViewSetButton.setToolTipText(I18N_.getText("view_manager","ViewManagerPlugIn.Toolbar.New.Tooltip"));
+        newViewSetButton.setToolTipText(i18n.get("ViewManagerPlugIn.Toolbar.New.Tooltip"));
         newViewSetButton.addActionListener(this);
         toolBar.add(newViewSetButton);
 
         JButton openViewSetButton = new JButton();
         openViewSetButton.setIcon(IconLoader.icon("fugue/folder-horizontal-open_16.png"));
         openViewSetButton.setActionCommand("openViewSet");
-        openViewSetButton.setToolTipText(I18N_.getText("view_manager","ViewManagerPlugIn.Toolbar.Open.Tooltip"));
+        openViewSetButton.setToolTipText(i18n.get("ViewManagerPlugIn.Toolbar.Open.Tooltip"));
         openViewSetButton.addActionListener(this);
         toolBar.add(openViewSetButton);
 
         JButton saveViewSetButton = new JButton();
         saveViewSetButton.setIcon(IconLoader.icon("disk.png"));
         saveViewSetButton.setActionCommand("saveViewSet");
-        saveViewSetButton.setToolTipText(I18N_.getText("view_manager","ViewManagerPlugIn.Toolbar.Save.Tooltip"));
+        saveViewSetButton.setToolTipText(i18n.get("ViewManagerPlugIn.Toolbar.Save.Tooltip"));
         saveViewSetButton.addActionListener(this);
         toolBar.add(saveViewSetButton);
 
         JButton saveViewSetAsButton = new JButton();
         saveViewSetAsButton.setIcon(IconLoader.icon("disk_dots.png"));
         saveViewSetAsButton.setActionCommand("saveViewSetAs");
-        saveViewSetAsButton.setToolTipText(I18N_.getText("view_manager","ViewManagerPlugIn.Toolbar.SaveAs.Tooltip"));
+        saveViewSetAsButton.setToolTipText(i18n.get("ViewManagerPlugIn.Toolbar.SaveAs.Tooltip"));
         saveViewSetAsButton.addActionListener(this);
         toolBar.add(saveViewSetAsButton);
 
@@ -155,7 +157,7 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
         constraints.gridy++;
         constraints.gridwidth = 1;
         constraints.weightx = 0.0;
-        mainPanel.add(new JLabel(I18N_.getText("view_manager","ViewManagerPlugIn.ViewSetName") + ":"), constraints);
+        mainPanel.add(new JLabel(i18n.get("ViewManagerPlugIn.ViewSetName") + ":"), constraints);
         constraints.gridx++;
         constraints.weightx = 1.0;
         viewSetNameLabel.setText(createNewViewSetName());
@@ -174,10 +176,10 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
         constraints.gridx = 0;
         constraints.gridwidth = 1;
         constraints.weightx = 0.0;
-        mainPanel.add(new JLabel(I18N_.getText("view_manager","ViewManagerPlugIn.add-view-from-project")), constraints);
+        mainPanel.add(new JLabel(i18n.get("ViewManagerPlugIn.add-view-from-project")), constraints);
         constraints.gridx++;
         constraints.weightx = 0.0;
-        JButton jbAddFromProject = new JButton(I18N_.getText("view_manager","ViewManagerPlugIn.add"));
+        JButton jbAddFromProject = new JButton(i18n.get("ViewManagerPlugIn.add"));
         jbAddFromProject.addActionListener(this);
         jbAddFromProject.setActionCommand("addFromProject");
         mainPanel.add(jbAddFromProject, constraints);
@@ -185,10 +187,10 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
         constraints.gridy++;
         constraints.gridx = 0;
         constraints.weightx = 0.0;
-        mainPanel.add(new JLabel(I18N_.getText("view_manager","ViewManagerPlugIn.add-view-from-selected-layers")), constraints);
+        mainPanel.add(new JLabel(i18n.get("ViewManagerPlugIn.add-view-from-selected-layers")), constraints);
         constraints.gridx++;
         constraints.weightx = 0.0;
-        JButton jbAddFromSelectedLayers = new JButton(I18N_.getText("view_manager","ViewManagerPlugIn.add"));
+        JButton jbAddFromSelectedLayers = new JButton(i18n.get("ViewManagerPlugIn.add"));
         jbAddFromSelectedLayers.addActionListener(this);
         jbAddFromSelectedLayers.setActionCommand("addFromSelectedLayers");
         mainPanel.add(jbAddFromSelectedLayers, constraints);
@@ -222,7 +224,8 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
     };
 
     String createNewViewSetName() throws IOException {
-        String newViewSetName = context.getTask().getName() + I18N_.getText("view_manager","ViewManagerPlugIn.-new-viewset");
+        String newViewSetName = context.getTask().getName() +
+            i18n.get("ViewManagerPlugIn.-new-viewset");
         if (viewSetNameExists(newViewSetName)) {
             int count = 2;
             while (viewSetNameExists(newViewSetName + " (" + count++ + ")")) {}
@@ -268,7 +271,7 @@ public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener 
     // new method
     public void openViewSet() {
         JFileChooser jfc = new JFileChooser(viewDir);
-        jfc.setDialogTitle(I18N_.getText("view_manager","ViewManagerPlugIn.ChooseViewSet"));
+        jfc.setDialogTitle(i18n.get("ViewManagerPlugIn.ChooseViewSet"));
         jfc.setFileFilter(xmlFileFilter);
         int r = jfc.showDialog(dialog, "OK");
         if (r == JFileChooser.APPROVE_OPTION) {

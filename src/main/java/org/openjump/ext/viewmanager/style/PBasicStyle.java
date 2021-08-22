@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by UMichael on 13/06/2015.
+ * Class to persist BasicStyle using JAXB
  */
 @XmlRootElement (name="basicStyle")
 public class PBasicStyle extends AbstractPStyle {

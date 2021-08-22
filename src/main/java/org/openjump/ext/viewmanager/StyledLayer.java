@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 /**
- * A set of styles we want to apply to a Layer.
+ * A set of styles to be applied to a Layer.
  */
 @XmlRootElement
 public class StyledLayer {

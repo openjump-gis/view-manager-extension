@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by UMichael on 13/06/2015.
+ * Class to persist LabelStyle.
  */
 @XmlRootElement(name="labelStyle")
 public class PLabelStyle extends AbstractPStyle {
@@ -109,11 +109,7 @@ public class PLabelStyle extends AbstractPStyle {
                 labelStyle.setAngleAttribute(alignment.angleAttribute);
             }
         }
-        //LOG.info(labelStyle);
-        //LOG.info("    " + labelStyle.getAttribute());
-        //LOG.info("    " + labelStyle.isEnabled());
-        //LOG.info("    " + labelStyle.isScaling());
-        //LOG.info("    " + labelStyle.getHeight());
+
         return labelStyle;
     }
 

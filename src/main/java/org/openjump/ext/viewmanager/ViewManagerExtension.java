@@ -14,7 +14,7 @@ public class ViewManagerExtension extends Extension {
     }
 
     public String getVersion() {
-        return "1.0.0 (2021-04-12)";
+        return "2.0.0 (2021-08-21)";
     }
 
     public void configure(PlugInContext context) throws Exception {

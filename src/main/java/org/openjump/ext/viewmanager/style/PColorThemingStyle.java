@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by UMichael on 13/06/2015.
+ * Class to persist a ColorThemingStyle with JAXB
  */
 @XmlRootElement(name="colorThemingStyle")
 public class PColorThemingStyle extends AbstractPStyle {

@@ -25,14 +25,12 @@ import java.awt.event.MouseEvent;
  */
 public class ViewSetPanel extends JPanel {
 
-    private I18N I18N_ = I18N.getInstance("view_manager");
+    private final I18N i18n = I18N.getInstance("view_manager");
 
     private ViewSet viewSet;
-    private PlugInContext context;
 
     public ViewSetPanel(final PlugInContext context, final ViewSet viewSet) {
         super(new GridBagLayout());
-        this.context = context;
         if (viewSet != null) {
             init(context, viewSet);
             viewSet.addListener((viewSet1, mod, view) -> {
@@ -81,13 +79,13 @@ public class ViewSetPanel extends JPanel {
         ImageIcon downIcon    = new ImageIcon(ViewSetPanel.class.getClassLoader().getResource("/images/arrow-down.png"));
         ImageIcon bottomIcon  = new ImageIcon(ViewSetPanel.class.getClassLoader().getResource("/images/arrow-bottom.png"));
 
-        private JMenuItem replaceByCurrentViewItem = new JMenuItem(I18N_.getText("view_manager","ViewSetPanel.replace-by-current-view"));
-        private JMenuItem replaceBySelectedLayerItem = new JMenuItem(I18N_.getText("view_manager","ViewSetPanel.replace-by-selected-layers"));
+        private final JMenuItem replaceByCurrentViewItem = new JMenuItem(i18n.get("ViewSetPanel.replace-by-current-view"));
+        private final JMenuItem replaceBySelectedLayerItem = new JMenuItem(i18n.get("ViewSetPanel.replace-by-selected-layers"));
 
-        private JMenuItem topMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewSetPanel.move-to-top"), topIcon);
-        private JMenuItem upMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewSetPanel.move-up"), upIcon);
-        private JMenuItem downMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewSetPanel.move-down"), downIcon);
-        private JMenuItem bottomMenuItem = new JMenuItem(I18N_.getText("view_manager","ViewSetPanel.move-to-bottom"), bottomIcon);
+        private final JMenuItem topMenuItem = new JMenuItem(i18n.get("ViewSetPanel.move-to-top"), topIcon);
+        private final JMenuItem upMenuItem = new JMenuItem(i18n.get("ViewSetPanel.move-up"), upIcon);
+        private final JMenuItem downMenuItem = new JMenuItem(i18n.get("ViewSetPanel.move-down"), downIcon);
+        private final JMenuItem bottomMenuItem = new JMenuItem(i18n.get("ViewSetPanel.move-to-bottom"), bottomIcon);
 
         private final JPopupMenu replacePopupMenu = new JPopupMenu();
         private final JPopupMenu movePopupMenu = new JPopupMenu();
@@ -95,7 +93,7 @@ public class ViewSetPanel extends JPanel {
         final private PlugInContext context;
         final private View view;
         final private JTextField viewTextField = new JTextField(24);
-        final private JButton applyButton      = new JButton(I18N_.getText("view_manager","ViewSetPanel.apply"));
+        final private JButton applyButton      = new JButton(i18n.get("ViewSetPanel.apply"));
         final private JButton deleteButton     = new JButton(deleteIcon);
         final private JButton replaceButton    = new JButton(replaceIcon);
         final private JButton moveButton       = new JButton(moveIcon);
@@ -111,7 +109,7 @@ public class ViewSetPanel extends JPanel {
             applyButton.setPreferredSize(new Dimension(applyButton.getPreferredSize().width, 22));
 
             deleteButton.addActionListener(this);
-            deleteButton.setToolTipText(I18N_.getText("view_manager","ViewSetPanel.delete"));
+            deleteButton.setToolTipText(i18n.get("ViewSetPanel.delete"));
             deleteButton.setActionCommand("delete");
             deleteButton.setPreferredSize(new Dimension(22,22));
 
@@ -143,7 +141,7 @@ public class ViewSetPanel extends JPanel {
             viewTextField.setActionCommand("changeName");
 
 
-            replaceButton.setToolTipText(I18N_.getText("view_manager","ViewSetPanel.replace"));
+            replaceButton.setToolTipText(i18n.get("ViewSetPanel.replace"));
             replaceButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -153,7 +151,7 @@ public class ViewSetPanel extends JPanel {
             replaceButton.setPreferredSize(new Dimension(22,22));
 
 
-            moveButton.setToolTipText(I18N_.getText("view_manager","ViewSetPanel.move"));
+            moveButton.setToolTipText(i18n.get("ViewSetPanel.move"));
             moveButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {

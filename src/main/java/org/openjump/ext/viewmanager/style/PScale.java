@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by UMichael on 21/06/2015.
+ * Class to persist Scale.
  */
 @XmlRootElement (name="scale")
 public class PScale {

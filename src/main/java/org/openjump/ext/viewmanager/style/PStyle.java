@@ -6,7 +6,7 @@ import com.vividsolutions.jump.workbench.ui.renderer.style.Style;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Persistent style
+ * Interface for a Style to be persisted
  */
 @XmlRootElement(name="style")
 public interface PStyle {

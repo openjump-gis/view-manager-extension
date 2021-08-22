@@ -4,7 +4,7 @@ import com.vividsolutions.jump.workbench.model.Layerable;
 import com.vividsolutions.jump.workbench.ui.renderer.style.Style;
 
 /**
- * Created by UMichael on 13/06/2015.
+ * Class to persist DecorationStyle.
  */
 public class PDecorationStyle extends AbstractPStyle {
 
