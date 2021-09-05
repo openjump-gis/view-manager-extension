@@ -29,7 +29,7 @@
             <artifactId>OpenJUMP</artifactId>
             <version>2.0-main-SNAPSHOT</version>
         </dependency>
-<!-- commented as they are included by OJ2 already
+<!-- 
         <dependency>
             <groupId>com.sun.activation</groupId>
             <artifactId>javax.activation</artifactId>
