@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 public class ViewManagerPlugIn extends AbstractPlugIn implements ActionListener {
 
-    private final I18N i18n = I18N.getInstance("view_manager");
+    private final I18N i18n = ViewManagerExtension.I18N;
 
     final JLabel viewSetNameLabel = new JLabel("", SwingConstants.LEFT);
 

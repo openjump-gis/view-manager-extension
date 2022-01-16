@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
  */
 public class ViewSetPanel extends JPanel {
 
-    private final I18N i18n = I18N.getInstance("view_manager");
+    private final I18N i18n = ViewManagerExtension.I18N;
 
     private ViewSet viewSet;
 
