@@ -25,39 +25,76 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.openjump</groupId>
-            <artifactId>OpenJUMP</artifactId>
-            <version>2.0-main-SNAPSHOT</version>
+          <groupId>org.openjump</groupId>
+          <artifactId>OpenJUMP</artifactId>
+          <version>2.0-main-SNAPSHOT</version>
+          <exclusions>
+            <!-- exclude jaxb deps ensure we distribute our own -->
+            <exclusion>
+              <groupId>*</groupId>
+              <artifactId>jaxb-api</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>*</groupId>
+              <artifactId>jaxb-runtime</artifactId>
+            </exclusion>
+            <exclusion>
+              <groupId>*</groupId>
+              <artifactId>javax.activation-api</artifactId>
+            </exclusion>
+          </exclusions>
         </dependency>
-<!-- 
+
         <dependency>
             <groupId>com.sun.activation</groupId>
             <artifactId>javax.activation</artifactId>
             <version>${javax.activation.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>${jaxb.api.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-core</artifactId>
             <version>${jaxb.api.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
             <version>${jaxb.api.version}</version>
         </dependency>
--->
+
     </dependencies>
     
   <build>
     <plugins>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <!-- fix "not covered by lifecycle configuration" Eclipse issue -->
+            <?m2e execute onConfiguration,onIncremental?>
+            <id>copy-dependencies for development</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <includeScope>runtime</includeScope>
+              <outputDirectory>${project.build.directory}/libs/</outputDirectory>
+              <excludeTransitive>true</excludeTransitive>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>false</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+              <excludeGroupIds>org.openjump</excludeGroupIds>
+              <excludeArtifactIds></excludeArtifactIds>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>
